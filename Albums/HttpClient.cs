@@ -10,6 +10,8 @@ namespace Albums
 {
 	internal static class HttpClient
 	{
+		public static string RetError { get; set; }
+
 		public static string GetListAlbums(string ParamInQuery)
 		{
 			try
@@ -27,15 +29,17 @@ namespace Albums
 				response.Close();
 				reader.Close();
 
+				RetError = "";
+
 				return pagebuilder.ToString();
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				RetError = ex.Message;
+
 				return "error";
 			}
-
 		}
-
 
 	}
 }
